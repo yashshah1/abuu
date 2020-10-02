@@ -1,1 +1,1 @@
-from .fit_estimator import fit_estimator
+from .fit_estimators import fit_estimators
