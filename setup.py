@@ -25,7 +25,10 @@ setup(
     ],
     packages=find_packages(),
     include_package_data=True,
-    install_requires=["pandas"],
+    install_requires=[
+    	"pandas>=1.0.0",
+    	"scikit-learn>=0.22.1"
+    ],
     entry_points={
         "console_scripts": [
             "abuu=utils.__main__:main",
