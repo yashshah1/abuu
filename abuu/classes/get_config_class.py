@@ -1,4 +1,5 @@
-from typing import Dict, Generic, TypeVar
+from typing import Dict, Generic, TypeVar, Union
+import json
 
 V = TypeVar("V")
 
@@ -10,11 +11,18 @@ class ConfigClass(Generic[V]):
     However, this looks less cleaner than writing config.key, which is more elegant.
     This function aims to convert a given config dict into a class which can be accessed as above.
     """
-    def __init__(self, data: Dict[str, V]) -> None:
+
+    _data: Dict[str, V]
+
+    def __init__(self, data: Union[str, Dict[str, V]]) -> None:
+        """Can accept a dict or json string"""
         # we dont check that the keys are strings for 2 reasons
         # 1) it is shown in the type hints that it must be a string, so users should make sure of that them self.
         # 2) this is expected to take json, and json always has str keys
-        self._data = data
+        if isinstance(data, str):
+            self._data = json.loads(data)
+        elif isinstance(data, dict):
+            self._data = data
 
     def __getattr__(self, key: str) -> V:
         """Try and get the attribute from data"""
