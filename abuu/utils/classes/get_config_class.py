@@ -1,18 +1,28 @@
-from typing import Dict, Any
+from typing import Dict, Generic, TypeVar
 
-class ConfigClass:
-    pass
+V = TypeVar("V")
 
-"""
-A lot of config usually exists as JSON objects, when parsed in Python,
-it results in a dict being generated which can be accessed as dict['key']
+class ConfigClass(Generic[V]):
+    """
+    A lot of config usually exists as JSON objects, when parsed in Python,
+    it results in a dict being generated which can be accessed as dict['key']
 
-However, this looks less cleaner than writing config.key, which is more elegant.
-This function aims to convert a given config dict into a class which can be accessed as above.
-"""
-def get_config_class(config: Dict[str, Any]) -> ConfigClass:
-    config_class = ConfigClass()
-    for key, value in config.items():
-        assert isinstance(key, str), "The keys of config must be `str`. Invalid key: {}".format(key)
-        setattr(config_class, key, value)
-    return config_class
+    However, this looks less cleaner than writing config.key, which is more elegant.
+    This function aims to convert a given config dict into a class which can be accessed as above.
+    """
+    def __init__(self, data: Dict[str, V]) -> None:
+        # we dont check that the keys are strings for 2 reasons
+        # 1) it is shown in the type hints that it must be a string, so users should make sure of that them self.
+        # 2) this is expected to take json, and json always has str keys
+        self._data = data
+
+    def __getattr__(self, key: str) -> V:
+        """Try and get the attribute from data"""
+        try:
+            return self._data[key]
+        except KeyError as e:
+            raise AttributeError(f"no attribute {key}.") from e
+
+
+
+get_config_class = ConfigClass  # for backwards compatibility.
