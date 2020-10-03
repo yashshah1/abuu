@@ -1,1 +1,1 @@
-from .get_config_class import get_config_class
+from .get_config_class import get_config_class, ConfigClass

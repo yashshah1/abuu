@@ -23,6 +23,8 @@ class ConfigClass(Generic[V]):
             self._data = json.loads(data)
         elif isinstance(data, dict):
             self._data = data
+        else:
+            raise ValueError("data must be either a JSON string or a python dict")
 
     def __getattr__(self, key: str) -> V:
         """Try and get the attribute from data"""
