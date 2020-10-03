@@ -1,2 +1,3 @@
-__version__ = "0.0.1"
-from . import utils
+from . import pandas
+from . import classes
+from . import sklearn
