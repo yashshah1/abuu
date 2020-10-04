@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="abuu",
-    version="1.0.0",
+    version=abuu.__version__,
     description="ABUU - Another Bunch of Uselessfull Utils",
     long_description=README,
     long_description_content_type="text/markdown",
