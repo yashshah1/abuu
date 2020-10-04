@@ -29,9 +29,4 @@ setup(
     	"pandas>=1.0.0",
     	"scikit-learn>=0.22.1"
     ],
-    entry_points={
-        "console_scripts": [
-            "abuu=utils.__main__:main",
-        ]
-    },
 )
