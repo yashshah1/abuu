@@ -13,7 +13,7 @@ README = (HERE / "README.md").read_text()
 setup(
     name="abuu",
     version=abuu.__version__,
-    description="ABUU - Another Bunch of Usefull Utils",
+    description="ABUU - Another Bunch of Useful Utils",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/yashshah1/abuu",
